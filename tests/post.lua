@@ -1,1 +1,1 @@
-wrk.method = "POST"
+wrk.method = "GET"

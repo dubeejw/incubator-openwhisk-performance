@@ -15,7 +15,8 @@ threads=${4:-4}
 # How long to run the test
 duration=${5:-30s}
 
-action="noopThroughput"
+action="logBombing"
+activation="f19127c1267645529127c126765552c6"
 "$currentDir/create.sh" "$host" "$credentials" "$action"
 
 # run throughput tests
@@ -25,7 +26,7 @@ docker run --pid=host --userns=host --rm -v "$currentDir":/data williamyeh/wrk \
   --connections "$concurrency" \
   --duration "$duration" \
   --header "Authorization: basic $encodedAuth" \
-  "$host/api/v1/namespaces/_/actions/$action?blocking=true" \
+  "$host/api/v1/namespaces/_/activations/$activation" \
   --latency \
   --timeout 10s \
   --script post.lua
